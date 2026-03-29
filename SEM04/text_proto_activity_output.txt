@@ -1,0 +1,21 @@
+TEST LOG:
+
+[INFO] Connected to 127.0.0.1:3333
+connected> add husna merhaba
+husna added
+connected> add bosun merhaba
+bosun added
+connected> count
+2 keys
+connected> get husna
+merhaba
+connected> foo test
+ERR unknown command
+connected>
+
+COMMENT: A length header is required because TCP is a stream-oriented protocol; it does not have built-in message boundaries.
+The application must perform "framing" to know where one command ends and the next begins. If a message is truncated 
+(shorter than the header length), the server's 'while remaining > 0' loop will block, waiting for the rest of the data. 
+If the header is invalid (e.g., not an integer), the server catches a ValueError, sends an 'ERR invalid length header' response, 
+and closes the connection to maintain
+stability and prevent a crash.
